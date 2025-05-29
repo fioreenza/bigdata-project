@@ -2,7 +2,10 @@
 
 Sistem Big Data yang akan dibuat berfungsi untuk mensimulasikan pemrosesan data stream menggunakan **Kafka** dan **Apache Spark**. Kafka Consumer tidak wajib menggunakan Spark Streaming.
 
----
+Dikerjakan Oleh:
+- Fiorenza Adelia Nalle 5027231053
+- Harwinda 5027231079
+- Aryasatya Alaauddin 5027231082
 
 ## Alur Sistem
 
@@ -43,7 +46,51 @@ Sistem Big Data yang akan dibuat berfungsi untuk mensimulasikan pemrosesan data 
    - Minimal jumlah endpoint API = jumlah anggota kelompok.
      - Contoh: jika 3 anggota, buat minimal 3 endpoint API dengan fungsi berbeda.
 
----
+## Dataset yang digunakan
+
+### Ringkasan Dataset: UK Housing Prices Paid
+
+Dataset ini berisi **data historis semua transaksi properti individual di Inggris dan Wales sejak tahun 1995** yang tercatat dengan harga pasar penuh (full market value). Data ini dirilis oleh **HM Land Registry** dan tersedia secara publik melalui lisensi **Open Government License 3.0**.
+
+### Informasi yang Disediakan
+
+Setiap baris data mewakili satu transaksi properti, dengan informasi sebagai berikut:
+
+* **Transaction Unique Identifier**: ID unik untuk setiap transaksi.
+* **Price**: Harga jual properti sesuai akta jual-beli.
+* **Date of Transfer**: Tanggal selesainya transaksi.
+* **Property Type**:
+
+  * `D` = Rumah Terpisah (Detached)
+  * `S` = Rumah Setengah Terpisah (Semi-Detached)
+  * `T` = Rumah Berderet (Terraced)
+  * `F` = Apartemen/Maisonette (Flats/Maisonettes)
+  * `O` = Lainnya
+* **Old/New**: Status usia properti
+
+  * `Y` = Properti baru dibangun
+  * `N` = Properti lama/eksisting
+* **Duration**: Jenis kepemilikan properti
+
+  * `F` = Freehold
+  * `L` = Leasehold
+* **Town/City**: Kota atau kota kecil tempat properti berada.
+* **District** dan **County**: Wilayah administratif properti.
+* **PPD Category Type**:
+
+  * `A` = Transaksi normal (dijual ke individu dengan harga pasar penuh)
+  * `B` = Transaksi tambahan (contoh: lelang, buy-to-let, atau ke institusi non-pribadi)
+* **Record Status - monthly file only**:
+
+  * `A` = Penambahan data baru
+  * `C` = Perubahan data
+  * `D` = Penghapusan data
+
+> **Catatan**: Alamat lengkap telah disingkat hanya sampai tingkat kota/kabupaten untuk menjaga privasi.
+
+### Sumber Resmi
+
+Dataset ini dipublikasikan oleh [HM Land Registry](https://www.gov.uk/government/organisations/land-registry) dan juga tersedia di [Kaggle](https://www.kaggle.com/datasets/hm-land-registry/uk-housing-prices-paid).
 
 ## Cara Menjalankan Sistem
 
@@ -79,7 +126,7 @@ Sistem Big Data yang akan dibuat berfungsi untuk mensimulasikan pemrosesan data 
     
     pip install numpy pandas
     
-    spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0 train_lr.py
+    spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0 file_training_model.py
     ```
 5. Menjalankan API
    ```
@@ -89,6 +136,15 @@ Sistem Big Data yang akan dibuat berfungsi untuk mensimulasikan pemrosesan data 
     
     python app.py
    ```
+---
+
+## Dokumentasi
+
+![image](https://github.com/user-attachments/assets/800cd275-f15e-4188-8256-3cb3883a02c5)
+![WhatsApp Image 2025-05-30 at 00 46 08_bd5a2cdd](https://github.com/user-attachments/assets/2d4d133d-2bb1-4d1d-ae81-03371f7a70bf)
+![Screenshot 2025-05-30 021647](https://github.com/user-attachments/assets/50d32ca9-e99a-494a-bcdc-b3b2872bdd33)
+
+
 
 
 
