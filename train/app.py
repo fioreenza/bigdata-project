@@ -2,6 +2,7 @@ import os
 from flask import Flask, request, jsonify
 from pyspark.sql import SparkSession
 from train_lr import PricePredictionEngine 
+from train_clustering import PropertyClusteringEngine
 from train_recomendation import PropertyRecommenderEngine
 import logging
 
@@ -23,6 +24,14 @@ try:
 except Exception as e:
     logger.error(f"Failed to load PricePredictionEngine: {e}", exc_info=True)
     price_engine = None 
+
+clustering_model_dir = "models/train_batch2"
+try:
+    clustering_engine = PropertyClusteringEngine(spark, model_dir=clustering_model_dir, load_existing=True)
+    logger.info(f"PropertyClusteringEngine loaded successfully from {clustering_model_dir}.")
+except Exception as e:
+    logger.error(f"Failed to load PropertyClusteringEngine: {e}", exc_info=True)
+    clustering_engine = None
 
 recommender_model_dir = "models/train_batch3" 
 try:
@@ -57,6 +66,25 @@ def predict_price():
     except Exception as e:
         logger.error(f"Price prediction error: {e}", exc_info=True)
         return jsonify({"error": f"An error occurred during price prediction: {str(e)}"}), 500
+    
+@app.route("/clustering", methods=["POST"])
+def cluster_property():
+    """
+    Endpoint untuk memprediksi cluster properti.
+    Expects JSON payload dengan fitur properti.
+    """
+    if clustering_engine is None:
+        return jsonify({"error": "Clustering service unavailable."}), 503
+    try:
+        data = request.json
+        if not data:
+            return jsonify({"error": "Request body must be JSON."}), 400
+        # Optional: parameter k override
+        cluster_id = clustering_engine.predict_cluster(data)
+        return jsonify({"cluster": cluster_id})
+    except Exception as e:
+        logger.error(f"Clustering error: {e}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
 
 @app.route("/recommend", methods=["POST"])
 def recommend_properties():
