@@ -52,4 +52,15 @@ services:
       - kafka
     command: tail -f /dev/null
 
-
+  backend:
+      image: bitnami/spark:3.5.0
+      container_name: backend
+      volumes:
+        - ./backend:/app
+      working_dir: /app
+      ports:
+        - "8000:8000"
+      depends_on:
+        - train
+        - kafka
+      command: tail -f /dev/null
