@@ -41,7 +41,7 @@ except Exception as e:
     logger.error(f"Failed to load PropertyRecommenderEngine: {e}", exc_info=True)
     recommender_engine = None
 
-@app.route("/predict", methods=["POST"])
+@app.route("/predict-price", methods=["POST"])
 def predict_price():
     """
     Endpoint to predict property price.
