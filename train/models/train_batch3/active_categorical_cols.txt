@@ -1,0 +1,8 @@
+Property Type
+Old/New
+Duration
+Town/City
+District
+County
+PPDCategory Type
+Record Status - monthly file only
