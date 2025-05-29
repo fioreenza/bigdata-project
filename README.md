@@ -83,6 +83,8 @@ Sistem Big Data yang akan dibuat berfungsi untuk mensimulasikan pemrosesan data 
     ```
 5. Menjalankan API
    ```
+    docker exec -it backend bash
+   
     pip install flask pyspark
     
     python app.py
